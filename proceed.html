@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .container { width: 90%; margin: auto; }
+    .cart-review, .shipping-info, .billing-info, .order-summary { margin-bottom: 20px; }
+    .section-title { font-size: 20px; margin-bottom: 10px; }
+    input[type="text"], input[type="number"], input[type="email"] {
+      width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box;
+    }
+    button { padding: 10px 20px; background-color: #d4af37; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #c49928; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Proceed to Checkout</h1>
+    
+    <!-- Cart Review -->
+    <div class="cart-review">
+      <h2 class="section-title">Cart Review</h2>
+      <div id="cart-items"></div>
+    </div>
+
+    <!-- Shipping Information -->
+    <div class="shipping-info">
+      <h2 class="section-title">Shipping Information</h2>
+      <label for="full-name">Full Name</label>
+      <input type="text" id="full-name" placeholder="Enter your full name" required>
+      
+      <label for="address">Address</label>
+      <input type="text" id="address" placeholder="Enter your address" required>
+      
+      <label for="city">City</label>
+      <input type="text" id="city" placeholder="Enter your city" required>
+      
+      <label for="zip-code">Zip Code</label>
+      <input type="text" id="zip-code" placeholder="Enter your zip code" required>
+      
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+    </div>
+
+    <!-- Billing Information -->
+    <div class="billing-info">
+      <h2 class="section-title">Billing Information</h2>
+      <label for="card-name">Name on Card</label>
+      <input type="text" id="card-name" placeholder="Enter name as it appears on card" required>
+      
+      <label for="card-number">Card Number</label>
+      <input type="number" id="card-number" placeholder="Enter your card number" required>
+      
+      <label for="card-expiry">Expiry Date</label>
+      <input type="text" id="card-expiry" placeholder="MM/YY" required>
+      
+      <label for="card-cvc">CVC</label>
+      <input type="text" id="card-cvc" placeholder="CVC" required>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h2 class="section-title">Order Summary</h2>
+      <p id="subtotal">Subtotal: $0</p>
+      <p id="shipping">Shipping: $10</p>
+      <p id="tax">Tax: $0</p>
+      <p id="total">Total: $0</p>
+    </div>
+
+    <!-- Place Order Button -->
+    <button id="place-order">Place Order</button>
+  </div>
+
+  <script>
+    // Retrieve cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Function to display cart items on checkout page
+    function displayCart() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      cartItemsContainer.innerHTML = ''; // Clear container before appending items
+
+      let subtotal = 0;
+      cart.forEach(item => {
+        const cartItemHTML = `
+          <div class="cart-item">
+            <p>${item.name}</p>
+            <p>Price: $${item.price}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Total: $${item.price * item.quantity}</p>
+          </div>
+        `;
+        cartItemsContainer.innerHTML += cartItemHTML;
+        subtotal += item.price * item.quantity;
+      });
+
+      // Update order summary
+      document.getElementById('subtotal').innerText = 'Subtotal: $' + subtotal;
+      const tax = subtotal * 0.1; // Assuming 10% tax rate
+      document.getElementById('tax').innerText = 'Tax: $' + tax.toFixed(2);
+      const shipping = 10; // Flat rate shipping
+      document.getElementById('shipping').innerText = 'Shipping: $' + shipping;
+      document.getElementById('total').innerText = 'Total: $' + (subtotal + tax + shipping).toFixed(2);
+    }
+
+    // Call displayCart when the page loads
+    window.onload = displayCart;
+
+    // Place order button functionality
+    document.getElementById('place-order').addEventListener('click', function() {
+      const fullName = document.getElementById('full-name').value;
+      const address = document.getElementById('address').value;
+      const city = document.getElementById('city').value;
+      const zipCode = document.getElementById('zip-code').value;
+      const email = document.getElementById('email').value;
+
+      const cardName = document.getElementById('card-name').value;
+      const cardNumber = document.getElementById('card-number').value;
+      const cardExpiry = document.getElementById('card-expiry').value;
+      const cardCVC = document.getElementById('card-cvc').value;
+
+      if (!fullName || !address || !city || !zipCode || !email || !cardName || !cardNumber || !cardExpiry || !cardCVC) {
+        alert('Please fill out all the fields');
+        return;
+      }
+
+      // For simplicity, let's assume we will just print the order data in the console
+      console.log('Order placed with the following details:');
+      console.log({
+        shippingInfo: {
+          fullName,
+          address,
+          city,
+          zipCode,
+          email
+        },
+        billingInfo: {
+          cardName,
+          cardNumber,
+          cardExpiry,
+          cardCVC
+        },
+        cart,
+        total: document.getElementById('total').innerText
+      });
+
+      alert('Your order has been placed successfully!');
+
+      // Clear cart after order is placed
+      localStorage.removeItem('cart');
+      window.location.href = 'thankyou.html'; // Redirect to a thank-you page
+    });
+  </script>
+</body>
+</html>

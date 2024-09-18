@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jewelry Online Shop - Necklaces</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            margin-top: 30px;
+            font-size: 2em;
+        }
+        .products {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .product {
+            width: 23%;
+            margin: 1%;
+            padding: 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .product:hover {
+            transform: scale(1.05);
+        }
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .product p {
+            color: #888;
+        }
+        .product button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .product button:hover {
+            background-color: #555;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Jewelry Online Shop</h1>
+    </header>
+
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="ring.html">Rings</a>
+        <a href="neckales.html">Necklaces</a>
+        <a href="bracelet.html">Bracelets</a>
+        <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <div class="container">
+        <h2>Our Stunning Necklace Collection</h2>
+
+        <div class="products">
+            <div class="product">
+                <img src="neckcales/n1.jpeg" alt="Gold Pendant Necklace">
+                <h3>Gold Pendant Necklace</h3>
+                <p>$200.00</p>
+                <button class="add-to-cart" data-id="1" data-name="Diamond Ring" data-price="500">
+                    Add to Cart
+                  </button>
+            </div>
+
+            <div class="product">
+                <img src="neckcales/n2.jpeg" alt="Diamond Choker Necklace">
+                <h3> Choker Necklace</h3>
+                <p>$450.00</p>
+                <button class="add-to-cart" data-id="1" data-name="Diamond Ring" data-price="500">
+                    Add to Cart
+                  </button>
+            </div>
+
+            <div class="product">
+                <img src="neckcales/n3.jpeg" alt="Silver Chain Necklace">
+                <h3>Gold Chain Necklace</h3>
+                <p>$120.00</p>
+                <button class="add-to-cart" data-id="1" data-name="Diamond Ring" data-price="500">
+                    Add to Cart
+                  </button>
+            </div>
+
+            <div class="product">
+                <img src="neckcales/n4.jpeg" alt="Pearl Necklace">
+                <h3>Pearl Necklace </h3>
+                <p>$350.00</p>
+                <button class="add-to-cart" data-id="1" data-name="Diamond Ring" data-price="500">
+                    Add to Cart
+                  </button>
+            </div>
+
+            <div class="product">
+                <img src="neckcales/n5.jpeg" alt="Rose Gold Heart Necklace">
+                <h3>Emerald Pendant Necklace </h3>
+                <p>$220.00</p>
+                <button class="add-to-cart" data-id="1" data-name="Diamond Ring" data-price="500">
+                    Add to Cart
+                  </button>
+            </div>
+
+            <div class="product">
+                <img src="neckcales/n6.jpeg" alt="Emerald Pendant Necklace">
+                <h3>Pearl Necklace</h3>
+                <p>$500.00</p>
+                <button class="add-to-cart" data-id="1" data-name="Diamond Ring" data-price="500">
+                    Add to Cart
+                  </button>
+            </div>
+
+            <div class="product">
+                <img src="neckcales/n9.jpeg" alt="Ruby Necklace">
+                <h3>Ruby Necklace</h3>
+                <p>$400.00</p>
+                <button class="add-to-cart" data-id="1" data-name="Diamond Ring" data-price="500">
+                    Add to Cart
+                  </button>
+            </div>
+
+            <div class="product">
+                <img src="neckcales/n10.jpeg" alt="Amethyst Necklace">
+                <h3>Amethyst Necklace</h3>
+                <p>$280.00</p>
+                <button class="add-to-cart" data-id="1" data-name="Diamond Ring" data-price="500">
+                    Add to Cart
+                  </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Jewelry Online Shop. All rights reserved.</p>
+    </footer>
+    <script>
+        // Sample array to hold cart items
+let cart = [];
+
+// Function to add item to cart
+function addToCart(itemId, itemName, itemPrice) {
+  // Check if item already exists in the cart
+  let existingItem = cart.find(item => item.id === itemId);
+
+  if (existingItem) {
+    // If it already exists, increment the quantity
+    existingItem.quantity += 1;
+  } else {
+    // If item is new, add it to the cart
+    cart.push({
+      id: itemId,
+      name: itemName,
+      price: itemPrice,
+      quantity: 1
+    });
+  }
+
+  // Save the updated cart to localStorage
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Redirect to the cart page after adding the item
+  window.location.href = 'cart.html';
+}
+
+// Event listener for "Add to Cart" button
+document.querySelectorAll('.add-to-cart').forEach(button => {
+  button.addEventListener('click', function() {
+    const itemId = this.getAttribute('data-id');
+    const itemName = this.getAttribute('data-name');
+    const itemPrice = this.getAttribute('data-price');
+
+    // Call the function to add the item to the cart
+    addToCart(itemId, itemName, itemPrice);
+  });
+});
+
+    </script>
+
+
+</body>
+</html>

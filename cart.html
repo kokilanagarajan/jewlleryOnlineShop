@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart</title>
+  <style>
+    .cart-item { border-bottom: 1px solid #ddd; padding: 15px; }
+    .cart-summary { margin-top: 20px; text-align: right; }
+    .cart-actions { display: flex; justify-content: space-between; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <h1>Your Shopping Cart</h1>
+  <div id="cart-items"></div>
+  <div class="cart-summary">
+    <p id="cart-total">Total: $0</p>
+  </div>
+  <div class="cart-actions">
+    <button onclick="continueShopping()">Continue Shopping</button>
+    <button onclick="proceedToCheckout()">Proceed to Checkout</button>
+  </div>
+
+  <script>
+    // Retrieve cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Function to display cart items
+    function displayCart() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      cartItemsContainer.innerHTML = '';
+
+      let total = 0;
+      cart.forEach(item => {
+        // Create HTML for each cart item
+        const cartItemHTML = `
+          <div class="cart-item">
+            <h2>${item.name}</h2>
+            <p>Price: $${item.price}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Total: $${item.price * item.quantity}</p>
+          </div>
+        `;
+        cartItemsContainer.innerHTML += cartItemHTML;
+        total += item.price * item.quantity;
+      });
+
+      // Update total
+      document.getElementById('cart-total').innerText = 'Total: $' + total;
+    }
+
+    // Call function to display cart items when page loads
+    window.onload = displayCart;
+
+    // Functions for buttons
+    function continueShopping() {
+      window.location.href = 'home.html'; // Redirect back to shop page
+    }
+
+    function proceedToCheckout() {
+      window.location.href = 'proceed.html'; // Redirect to checkout page
+    }
+  </script>
+</body>
+</html>
